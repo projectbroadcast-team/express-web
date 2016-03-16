@@ -2,6 +2,9 @@
   "name": "express-web-template",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+      "watch": "watchify -g require-globify load.js -o loaded.js -v"
+  },
   "dependencies": {
     "underscore":"*",
     "underscore.string":"3.2.3",
