@@ -1,10 +1,11 @@
 {
-  "name": "express-web",
+  "name": "express-web-template",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
     "underscore":"*",
-    "underscore.string":"3.2.3"
+    "underscore.string":"3.2.3",
+    "express-web": "file:../"
   },
   "devDependencies": {
     "require-globify": "*"
