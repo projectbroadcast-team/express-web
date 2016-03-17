@@ -12,10 +12,16 @@ module.exports = function($) {
         };
 
     $.load = function() {
+        console.log('')
+        console.log('LOADING');
+
         var process = function(moduleName, list) {
             var module = $[moduleName];
 
             _.each(list, function(item) {
+                if (item.name.indexOf('index') !== -1) {
+                    return;
+                }
                 var splits = item.name.split('/');
                 if (splits.length > 1) {
                     var ref = module;
@@ -34,12 +40,12 @@ module.exports = function($) {
             console.log('loaded', moduleName, module);
         };
 
-        process('lib', require('../../lib/**/*.js', {mode: 'list', options: { ignore: '../../lib/index.js'}}));
-        process('views', require('../../views/**/*.ejs', {mode: 'list', options: { ignore: '../../views/index.js'}}));
-        process('plugins', require('../../plugins/**/*.js', {mode: 'list', options: { ignore: '../../plugins/index.js'}}));
-        process('controllers', require('../../controllers/**/*.js', {mode: 'list', options: { ignore: '../../controllers/index.js'}}));
-        process('services', require('../../services/**/*.js', {mode: 'list', options: { ignore: '../../services/index.js'}}));
-        process('managers', require('../../managers/**/*.js', {mode: 'list', options: { ignore: '../../managers/index.js'}}));
+        process('lib', require('../../lib/**/*.js', {mode: 'list'}));
+        process('views', require('../../views/**/*{.ejs,.js}', {mode: 'list'}));
+        process('plugins', require('../../plugins/**/*.js', {mode: 'list'}));
+        process('controllers', require('../../controllers/**/*.js', {mode: 'list'}));
+        process('services', require('../../services/**/*.js', {mode: 'list'}));
+        process('managers', require('../../managers/**/*.js', {mode: 'list'}));
 
         return $;
     };
