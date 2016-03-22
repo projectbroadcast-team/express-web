@@ -1,1 +1,1 @@
-module.exports = require('express-web')();
+module.exports = require('express-web');
