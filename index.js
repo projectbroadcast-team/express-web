@@ -18,7 +18,7 @@ $.load = function(_$) {
     console.log('');
     console.log('LOADING');
 
-    var process = function(moduleName, list, onlyIndexes) {
+    var process = function(moduleName, list) {
         var module = $[moduleName];
 
         _.each(list, function(item) {
@@ -41,28 +41,26 @@ $.load = function(_$) {
                 module[s.camelize(item.name)] = item.module;
             }
         });
-        if (onlyIndexes) {
-            console.log('loaded', moduleName, module);
-        }
+        console.log('loaded', moduleName, module);
     };
 
     process('lib', require('../../lib/**/*.js', {mode: 'list', options: {ignore:'../../lib/**/index.js'} }));
-    process('lib', require('../../lib/**/index.js', {mode: 'list'}), true);
+    require('../../lib/**/index.js', {mode: 'list'});
 
     process('views', require('../../views/**/*{.ejs,.js}', {mode: 'list', options: {ignore:'../../views/**/index.js'} }));
-    process('views', require('../../views/**/index.js', {mode: 'list'}), true);
+    require('../../views/**/index.js', {mode: 'list'});
 
     process('plugins', require('../../plugins/**/*.js', {mode: 'list', options: {ignore:'../../plugins/**/index.js'} }));
-    process('plugins', require('../../plugins/**/index.js', {mode: 'list'}), true);
+    require('../../plugins/**/index.js', {mode: 'list'});
 
     process('controllers', require('../../controllers/**/*.js', {mode: 'list', options: {ignore:'../../controllers/**/index.js'} }));
-    process('controllers', require('../../controllers/**/index.js', {mode: 'list'}), true);
+    require('../../controllers/**/index.js', {mode: 'list'});
 
     process('services', require('../../services/**/*.js', {mode: 'list', options: {ignore:'../../services/**/index.js'} }));
-    process('services', require('../../services/**/index.js', {mode: 'list'}), true);
+    require('../../services/**/index.js', {mode: 'list'});
 
     process('managers', require('../../managers/**/*.js', {mode: 'list', options: {ignore:'../../managers/**/index.js'} }));
-    process('managers', require('../../managers/**/index.js', {mode: 'list'}), true);
+    require('../../managers/**/index.js', {mode: 'list'});
 
     return $;
 };
