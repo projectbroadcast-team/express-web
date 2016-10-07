@@ -65,5 +65,8 @@ $.load = function(_$) {
     process('managers', require('../../managers/**/*.js', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../managers/**/index.js'} }));
     require('../../managers/**/index.js', {mode: 'list'});
 
+    process('orchestrators', require('../../orchestrators/**/*.js', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../orchestrators/**/index.js'} }));
+    require('../../orchestrators/**/index.js', {mode: 'list'});
+
     return $;
 };
