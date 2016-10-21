@@ -71,7 +71,7 @@ $.load = function(_$) {
     process('lib', require('../../lib/**/*.js', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../lib/**/index.js'} }));
     process('lib', require('../../lib/**/index.js', {mode: 'list', resolve:['path']}));
 
-    console.log('loading views !!');
+    console.log('loading views');
     process('views', require('../../views/**/*{.ejs,.js}', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../views/**/index.js'} }));
     process('views', require('../../views/**/index.js', {mode: 'list', resolve:['path']}));
 
