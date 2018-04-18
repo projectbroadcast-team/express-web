@@ -3,7 +3,7 @@ var s = require('underscore.string');
 
 var $ = module.exports = {};
 
-var dirs = ['lib', 'views', 'helpers', 'plugins', 'controllers', 'services', 'managers', 'orchestrators'];
+var dirs = ['lib', 'helpers', 'views', 'plugins', 'controllers', 'services', 'managers', 'orchestrators'];
 
 var process = function(moduleName, list) {
     var module = $[moduleName];
@@ -70,6 +70,10 @@ $.load = function(_$) {
     console.log('loading lib');
     process('lib', require('../../lib/**/*.js', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../lib/**/index.js'} }));
     process('lib', require('../../lib/**/index.js', {mode: 'list', resolve:['path']}));
+
+    console.log('loading helpers');
+    process('helpers', require('../../helpers/**/*.js', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../helpers/**/index.js'} }));
+    process('helpers', require('../../helpers/**/index.js', {mode: 'list', resolve:['path']}));
 
     console.log('loading views');
     process('views', require('../../views/**/*{.ejs,.js}', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../views/**/index.js'} }));
