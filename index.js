@@ -100,7 +100,7 @@ $.load = function(_$) {
     process('orchestrators', require('../../orchestrators/**/index.js', {mode: 'list', resolve:['path']}));
 
     console.log('loading components');
-    process('components', require('../../components/**/*.js', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../components/**/index.js'} }));
+    process('components', require('../../components/**/*{.ejs,.js}', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../components/**/index.js'} }));
     process('components', require('../../components/**/index.js', {mode: 'list', resolve:['path']}));
 
     console.log('LOADED');
