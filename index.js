@@ -6,6 +6,22 @@ var $ = module.exports = {};
 var dirs = ['lib', 'helpers', 'views', 'plugins', 'controllers', 'services', 'managers', 'orchestrators', 'components'];
 
 var process = function(moduleName, list) {
+    if (moduleName === 'components-views') {
+        var module = $['views'];
+        // console.log("!!!!YES1",moduleName);
+        return _.each(list, function(item) {
+            // console.log("!!!!YES2",item);
+            item.name = item.name.split('../../'+'components'+'/')[1];
+            // console.log("!!!!YES3",item.name);
+            if (item.name.indexOf('express') !== -1) {
+                return;
+            }
+            // console.log("!!!!YES4",s.camelize(item.name));
+            module[item.name] = item.module;
+            // console.log("!!!!YES5",module[s.camelize(item.name)]);
+        });
+    }
+
     var module = $[moduleName];
 
     _.each(list, function(item) {
@@ -37,8 +53,8 @@ var process = function(moduleName, list) {
                 } else {
                     var localRef = ref;
                     ref = ref[split] || (ref[split] = function() {
-                            return _.isFunction(localRef[split].index) && localRef[split].index.apply(this,arguments);
-                        });
+                        return _.isFunction(localRef[split].index) && localRef[split].index.apply(this,arguments);
+                    });
                 }
                 prevSplit = split;
                 prevRef = ref;
@@ -100,7 +116,8 @@ $.load = function(_$) {
     process('orchestrators', require('../../orchestrators/**/index.js', {mode: 'list', resolve:['path']}));
 
     console.log('loading components');
-    process('components', require('../../components/**/*{.ejs,.js}', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../components/**/index.js'} }));
+    process('components-views', require('../../components/**/*.ejs', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../components/**/index.js'} }));
+    process('components', require('../../components/**/*.js', {mode: 'list', resolve:['path','strip-ext'], options: {ignore:'../../components/**/index.js'} }));
     process('components', require('../../components/**/index.js', {mode: 'list', resolve:['path']}));
 
     console.log('LOADED');
