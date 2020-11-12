@@ -5,6 +5,28 @@ var $ = module.exports = {};
 
 var dirs = ['lib', 'helpers', 'views', 'plugins', 'controllers', 'services', 'managers', 'orchestrators', 'components'];
 
+var lazy = function(func) {
+    func.lazy = function() {
+        var topArgs = arguments;
+
+        var iam = function() {
+            if (iam.lazy) {
+                return iam;
+            }
+            var me = func.apply(null, topArgs);
+            _.extend(iam, me);
+            iam.lazy = true;
+            var callback = topArgs[topArgs.length-1];
+            if (_.isFunction(callback)) {
+                callback(me);
+            }
+            return iam;
+        };
+        return iam;
+    };
+    return func;
+};
+
 var process = function(moduleName, list) {
     if (moduleName === 'components-views') {
         var module = $['views'];
@@ -17,6 +39,10 @@ var process = function(moduleName, list) {
                 return;
             }
             // console.log("!!!!YES4",s.camelize(item.name));
+            if (_.isFunction(item.module)) {
+                lazy(item.module);
+            }
+
             module[item.name] = item.module;
             // console.log("!!!!YES5",module[s.camelize(item.name)]);
         });
@@ -26,6 +52,10 @@ var process = function(moduleName, list) {
 
     _.each(list, function(item) {
         //console.log('module item.name=', item.name);
+
+        if (_.isFunction(item.module)) {
+            lazy(item.module);
+        }
 
         item.name = item.name.split('../../'+moduleName+'/')[1];
 
@@ -52,9 +82,9 @@ var process = function(moduleName, list) {
                     }
                 } else {
                     var localRef = ref;
-                    ref = ref[split] || (ref[split] = function() {
+                    ref = ref[split] || (ref[split] = lazy(function() {
                         return _.isFunction(localRef[split].index) && localRef[split].index.apply(this,arguments);
-                    });
+                    }));
                 }
                 prevSplit = split;
                 prevRef = ref;
