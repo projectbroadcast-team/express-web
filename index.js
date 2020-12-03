@@ -101,7 +101,8 @@ var process = function(moduleName, list) {
 
 $.load = function(_$) {
     console.log('');
-    console.log('LOADING', __dirname);
+    // console.log('LOADING', __dirname);
+    console.log('LOADING');
 
     if (_$) {
         _.extend($, _$);
