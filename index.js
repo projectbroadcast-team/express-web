@@ -65,7 +65,7 @@ var process = function(moduleName, list) {
 
         var isIndex = item.name.indexOf('index.js') !== -1;
 
-        item.name = item.name.split('.js')[0];
+        item.name = item.name.split(/\.e?js/)[0];
 
         var splits = item.name.split('/');
         if (splits.length > 1) {
@@ -101,7 +101,6 @@ var process = function(moduleName, list) {
 
 $.load = function(_$) {
     console.log('');
-    // console.log('LOADING', __dirname);
     console.log('LOADING');
 
     if (_$) {
@@ -123,7 +122,7 @@ $.load = function(_$) {
     process('helpers', require('glob:../../helpers/**/index.js'));
 
     console.log('loading views');
-    process('views', require('glob:../../views/**/!(index).{ejs,js}'));
+    process('views', require('glob:../../views/**/!(index).ejs'));
     process('views', require('glob:../../views/**/index.js'));
 
     console.log('loading plugins');
