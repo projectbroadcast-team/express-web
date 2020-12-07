@@ -123,7 +123,7 @@ $.load = function(_$) {
 
     console.log('loading views');
     process('views', require('glob:../../views/**/!(index).ejs'));
-    process('views', require('glob:../../views/**/index.js'));
+    process('views', require('glob:../../views/**/index.ejs'));
 
     console.log('loading plugins');
     process('plugins', require('glob:../../plugins/**/!(index).js'));
