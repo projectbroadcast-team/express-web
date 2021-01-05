@@ -33,7 +33,8 @@ var process = function(moduleName, list) {
         // console.log("!!!!YES1",moduleName);
         return _.each(list, function(item) {
             // console.log("!!!!YES2",item);
-            item.name = item.name.split('../../'+'components'+'/')[1];
+            item.name = item.name.split(/\.e?js/)[0];
+            item.name = item.name.split('../../components/')[1];
             // console.log("!!!!YES3",item.name);
             if (item.name.indexOf('express') !== -1) {
                 return;
